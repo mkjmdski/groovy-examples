@@ -1,3 +1,25 @@
+println "Collect entries is very often used to create map of closures to execute in parallel"
+[1, 2, 3].collectEntries{ return [
+  (it): { sum ->
+    println it + sum
+  }
+]}.each {
+  it.value(1)
+}
+
+println "Inject operation allows to pass variable into each iteration on list"
+['b', 'c', 'd'].inject("alphabet: a") {alphabet, letter ->
+  alphabet += ", ${letter}"
+} + "..."
+
+println "Print all files with yml or yaml extension in the current directory"
+"ls -al".execute().text.split('\n').findAll {
+  it.contains('yml') || it.contains('yaml')
+}.collect {
+  it.split().last()
+}
+
+
 def joinTwoWordsWithSymbol = { symbol, first, second ->
   first + symbol + second
 }
@@ -21,11 +43,3 @@ def cube = power.rcurry(3)
 assert power(2, 2) == 4
 assert square(4) == 16
 assert cube(3) == 27
-
-[1, 2, 3].collectEntries{ return [
-  (it): { sum ->
-    println it + sum
-  }
-]}.each {
-  it.value(1)
-}
