@@ -1,5 +1,7 @@
 def loadScript(fileName) {
-    return new GroovyShell().parse( new File( fileName ) )
+    return new GroovyShell().parse( 
+        new File(fileName) 
+    ).run()
 }
 
 def ls(dir=".") {
