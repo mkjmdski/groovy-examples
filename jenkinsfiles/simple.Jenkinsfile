@@ -10,7 +10,6 @@ pipeline {
         TEST_SECRET = credentials('secret-credentials')
     }
     options {
-        //
         // this adds timestamp for each step being executed
         timestamps()
         // this allows xterm escape signs to render colors on jenkins
@@ -31,8 +30,9 @@ pipeline {
             environment {
                 TEST_STAGE_SPECIFIC = "new env"
             }
-            // this is recomendded only if master infrastructure is constant for the specified build environment, for example there is only one type of agent or operations are package agnostic
-            agent any
+            agent {
+                label "qaus"
+            }
             steps {
                 sh "env | grep TEST"
                 dir ('foo'){
